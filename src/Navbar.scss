@@ -1,0 +1,16 @@
+.Navbar {
+  padding: 1rem;
+  display: flex;
+
+  .Navbar__item {
+    margin: 0 0.25rem;
+
+    .Navbar__link {
+      color: var(--solidgold);
+  
+      &:not(.active):not(:hover) {
+        text-decoration: none;
+      }
+    }
+  }
+}

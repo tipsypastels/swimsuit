@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+  --swimsuit:   #2F2BAD;
+  --spraypaint: #AD2BAD;
+  --sweetness:  #E42692;
+  --sexercise:  #F71568;
+  --solidgold:  #F7DB15;
+
+  --swimsuit-dark:   #{darken(#2F2BAD, 33%)};
+  --spraypaint-dark: #{darken(#AD2BAD, 33%)};
+  --sweetness-dark:  #{darken(#E42692, 33%)};
+  --sexercise-dark:  #{darken(#F71568, 33%)};
+  --solidgold-dark:  #{darken(#F7DB15, 33%)};
+
+  margin: 0;
+  font-family: Roboto;
+
+  ::selection {
+    background-color: var(--solidgold);
+    color: white;
+  }
+}
+
+.App {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+
+  background: linear-gradient(
+    to bottom right, 
+    var(--swimsuit),
+    var(--swimsuit-dark),
+  );
+
+  color: white;
+}
