@@ -3,6 +3,11 @@
   margin-bottom: 1rem;
   position: relative;
 
+  ::selection {
+    color: white;
+    background-color: var(--section-color);
+  }
+
   &::after {
     position: absolute;
     top: 0;

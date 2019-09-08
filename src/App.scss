@@ -1,34 +1,31 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
 
 body {
-  --swimsuit:   #2F2BAD;
-  --spraypaint: #AD2BAD;
+  --solidgold:  #F7DB15;
   --sweetness:  #E42692;
   --sexercise:  #F71568;
-  --solidgold:  #F7DB15;
-
-  --swimsuit-dark:   #{darken(#2F2BAD, 33%)};
-  --spraypaint-dark: #{darken(#AD2BAD, 33%)};
-  --sweetness-dark:  #{darken(#E42692, 33%)};
-  --sexercise-dark:  #{darken(#F71568, 33%)};
-  --solidgold-dark:  #{darken(#F7DB15, 33%)};
+  --spraypaint: #AD2BAD;
+  --swimsuit:   #2F2BAD;
+  --sympathy:  #1e1c70;
 
   margin: 0;
   font-family: Roboto;
 
   color: #2b2b2b;
   background-color: #fdfdfd;
-
-  ::selection {
-    background-color: var(--sexercise);
-    color: white;
-  }
 }
 
-.App {
+.Page {
   width: 800px;
   max-width: 100%;
   margin: auto;
+}
+
+.Footer {
+  background-color: var(--sexercise);
+  color: white;
+  text-align: center;
+  padding: 1rem;
 }
 
 .title-bar {
