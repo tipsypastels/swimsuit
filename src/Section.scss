@@ -1,0 +1,26 @@
+.Section {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 10%;
+    height: 100%;
+    content: ' ';
+    border: 2px solid var(--section-color);
+    border-right: none;
+    pointer-events: none;
+  }
+
+  .Section__title {
+    font-size: 1.45rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--section-color);
+    text-decoration: none;
+    display: block;
+  }
+}
