@@ -31,5 +31,13 @@
 
   .Section__body {
     line-height: 1.65rem;
+
+    a {
+      color: var(--section-color);
+
+      &:not(:hover) {
+        text-decoration: none;
+      }
+    }
   }
 }

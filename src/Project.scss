@@ -23,16 +23,6 @@
     }
   }
 
-  .Project__body {
-    a {
-      color: var(--section-color);
-
-      &:not(:hover) {
-        text-decoration: none;
-      }
-    }
-  }
-
   .Project__links {
     margin-top: 0.5rem;
     font-weight: bold;

@@ -111,7 +111,7 @@ export default function App() {
           </p>
 
           <p>
-            <strong>I'm currently available for freelance programming work!</strong> Check out the sections below for examples of what I can do, and feel free to contact me on either Twitter or Discord (<em>dakota#0001</em>) if you'd like to talk about a project.
+            <strong>I'm currently available for freelance programming work!</strong> Check out the sections below for examples of what I can do, and feel free to contact me on either <a href="https://twitter.com/tipsypastels">Twitter</a> or Discord (<em>dakota#0001</em>) if you'd like to talk about a project.
           </p>
         </Section>
 
