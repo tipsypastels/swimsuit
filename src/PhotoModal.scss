@@ -23,6 +23,7 @@
 
     max-width: 90%;
     box-shadow: 4px 4px 8px mix(black, transparent, 25%);
+    user-select: none;
 
     .PhotoModal__control {
       position: absolute;

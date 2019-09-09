@@ -5,7 +5,12 @@ import Project from './Project';
 import PhotoModal from './PhotoModal';
 
 import pc3Img from './images/pc3.png';
+import pc3Img2 from './images/pc3_2.png';
+import pc3Img3 from './images/pc3_3.png';
+
 import fghImg from './images/fgh.png';
+import fghImg2 from './images/fgh_2.png';
+import fghImg3 from './images/fgh_3.png';
 
 import './App.scss';
 import './fa/css/all.min.scss';
@@ -90,7 +95,7 @@ export default function App() {
             site="https://pokecommunity.com"
             techs={['php', 'html', 'scss', 'javascript']}
           >
-            PokéCommunity is a popular unofficial forum for fans of the Pokémon franchise. It uses a heavily modified version of the PHP-based <a href="https://www.vbulletin.com/">vBulletin</a> forum software, although a rewritten version using React and <a href="https://koajs.com/">Koa.js</a> is currently being developed (see the section below). My role on the site is head of a volunteer team of developers, working to add new features and modernize the look and feel of the site.
+            PokéCommunity is a popular unofficial forum for fans of the Pokémon franchise. It uses a heavily modified version of the PHP-based <a href="https://www.vbulletin.com/">vBulletin</a> forum software, although a rewritten version using React and <a href="https://koajs.com/">Koa.js</a> is currently being developed (see the section below). My role on the site is the leader of a volunteer team of developers, working to add new features and modernize the look and feel of the site.
           </Project>
 
           <Project 
@@ -98,7 +103,7 @@ export default function App() {
             github="https://github.com/thepokecommunity/pokecommunity-react"
             techs={['react', 'typescript', 'javascript', 'koajs', 'scss']}
             photos={{
-              list: [pc3Img],
+              list: [pc3Img, pc3Img2, pc3Img3],
               dispatch: photoDispatch,
             }}
           >
@@ -118,7 +123,7 @@ export default function App() {
             github="https://github.com/tipsypastels/fgh4"
             techs={['rails', 'javascript', 'jquery', 'stimulusjs', 'scss']}
             photos={{
-              list: [fghImg],
+              list: [fghImg, fghImg2, fghImg3],
               dispatch: photoDispatch,
             }}
           >

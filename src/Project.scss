@@ -40,6 +40,7 @@
     .Project__links__link {
       color: inherit;
       padding: 0 0.15rem;
+      text-decoration: none;
       
       display: block;
       cursor: pointer;
@@ -48,11 +49,8 @@
         color: var(--section-color);
       }
 
-      &:not(:hover) {
-        text-decoration: none;
-      }
-
       &:hover {
+        text-decoration: underline;
         color: var(--section-color);
       }
     }
