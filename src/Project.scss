@@ -37,9 +37,12 @@
     margin-top: 0.5rem;
     font-weight: bold;
     
-    a {
+    .Project__links__link {
       color: inherit;
       padding: 0 0.15rem;
+      
+      display: block;
+      cursor: pointer;
       
       .icon {
         color: var(--section-color);

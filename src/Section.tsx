@@ -13,7 +13,7 @@ export default function Section(props: IProps) {
   const id = kebabCase(props.title);
 
   return (
-    <div 
+    <section 
       className="Section" 
       id={id}
       style={{
@@ -27,6 +27,6 @@ export default function Section(props: IProps) {
       <div className="Section__body">
         {props.children}
       </div>
-    </div>
+    </section>
   )
 }

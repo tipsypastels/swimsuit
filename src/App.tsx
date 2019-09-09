@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useReducer } from 'react';
 
 import Section from './Section';
 import Project from './Project';
+import PhotoModal from './PhotoModal';
+
+import pc3Img from './images/pc3.png';
+import fghImg from './images/fgh.png';
 
 import './App.scss';
 import './fa/css/all.min.scss';
@@ -9,16 +13,72 @@ import './fa/css/all.min.scss';
 const STARTING_YEAR = 2019;
 const CURRENT_YEAR = new Date().getFullYear();
 
+type State = {
+  photoIndex: number;
+  photoList: string[];
+}
+
+type Action =
+  | { type: 'next' }
+  | { type: 'prev' }
+  | { type: 'open', photos: string[] }
+  | { type: 'close' }
+
+function reducer(state: State, action: Action) {
+  switch(action.type) {
+    case 'next': return {
+      ...state,
+      photoIndex: (state.photoIndex + 1) % state.photoList.length,
+    }
+    case 'prev': return {
+      ...state,
+      photoIndex: (state.photoIndex - 1 + state.photoList.length) % state.photoList.length,
+    }
+    case 'open': return {
+      photoIndex: 0,
+      photoList: action.photos,
+    }
+    case 'close': return {
+      photoIndex: null,
+      photoList: null,
+    }
+    default: return state;
+  }
+}
+
+export type PhotoState  = State;
+export type PhotoAction = Action;
+
 export default function App() {
+  const [photoState, photoDispatch] = useReducer(reducer, {
+    photoIndex: null, photoList: null,
+  });
 
   return (
     <div className="App">
+      <PhotoModal
+        photoState={photoState}
+        photoDispatch={photoDispatch}
+      />
+
       <div className="Page">
-        <h1 className="title-bar">
-          <span>
+        <div className="title-bar">
+          <div className="title-bar__name">
             Dakota Sankey
-          </span>
-        </h1>
+          </div>
+
+          <div className="title-bar__spacer" />
+
+          <nav className="title-bar__nav">
+            <a href="https://github.com/tipsypastels">
+              Github
+            </a>
+
+            <a href="https://twitter.com/tipsypastels">
+              Twitter
+            </a>
+          </nav>
+        </div>
         
         <Section title="About" color="sweetness">
           a
@@ -37,13 +97,16 @@ export default function App() {
             title="PokéCommunity3" 
             github="https://github.com/thepokecommunity/pokecommunity-react"
             techs={['react', 'typescript', 'javascript', 'koajs', 'scss']}
+            photos={{
+              list: [pc3Img],
+              dispatch: photoDispatch,
+            }}
           >
             PokéCommunity3 is a rewritten version of PokéCommunity using a modern React codebase. For the server it uses an external API powered by Koa.js, and both ends of the app are also written in Typescript. The project is currently in development and has not yet been released.
           </Project>
 
           <Project
             title="Safari Zine"
-            site="https://safarizine.dakota.zone"
             github="https://github.com/tipsypastels/safari-zine-theme"
             techs={['wordpress', 'php', 'html', 'scss', 'javascript']}
           >
@@ -52,9 +115,12 @@ export default function App() {
 
           <Project
             title="Fangame Hacktory"
-            site="https://fgh.dakota.zone"
             github="https://github.com/tipsypastels/fgh4"
             techs={['rails', 'javascript', 'jquery', 'stimulusjs', 'scss']}
+            photos={{
+              list: [fghImg],
+              dispatch: photoDispatch,
+            }}
           >
             Fangame Hacktory is a small site for the creators of fan-made games and <a href="https://en.wikipedia.org/wiki/ROM_hacking">ROM Hacks</a> to post content. It uses mostly vanilla Rails architecture, with no front-end framework, though it still manages plenty of client-side functionality through the lightweight use of <a href="https://stimulusjs.org/">Stimulus.js</a>.
           </Project>

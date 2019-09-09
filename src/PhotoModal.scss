@@ -1,0 +1,52 @@
+.PhotoModal {
+  position: fixed;
+
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99999;
+
+  background-color: rgba(black, 0.4);
+  cursor: pointer;
+
+  .PhotoModal__body {
+    position: relative;
+
+    background-color: white;
+    cursor: initial;
+
+    max-width: 90%;
+    box-shadow: 4px 4px 8px mix(black, transparent, 25%);
+
+    .PhotoModal__control {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      
+      color: white;
+      text-shadow: 2px 2px 8px black;
+      font-size: 8rem;
+      height: 8rem;
+
+      cursor: pointer;
+
+      &.PhotoModal__control--prev {
+        left: 3px;
+      }
+
+      &.PhotoModal__control--next {
+        right: 3px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}
