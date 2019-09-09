@@ -14,6 +14,7 @@ import fghImg3 from './images/fgh_3.png';
 
 import './App.scss';
 import './fa/css/all.min.scss';
+import Header from './Header';
 
 const STARTING_YEAR = 2019;
 const CURRENT_YEAR = new Date().getFullYear();
@@ -67,23 +68,7 @@ export default function App() {
       />
 
       <div className="Page">
-        <div className="title-bar">
-          <div className="title-bar__name">
-            Dakota Sankey
-          </div>
-
-          <div className="title-bar__spacer" />
-
-          <nav className="title-bar__nav">
-            <a href="https://github.com/tipsypastels">
-              Github
-            </a>
-
-            <a href="https://twitter.com/tipsypastels">
-              Twitter
-            </a>
-          </nav>
-        </div>
+        <Header />
         
         <Section title="About" color="sweetness">
           a
@@ -161,6 +146,14 @@ export default function App() {
             techs={['ruby', 'discordrb']}
           >
             Whismur is a bot inspired by the popular online <a href="https://brantsteele.net/hungergames/disclaimer.php">Hunger Games simulator</a>, in which you enter the names of 24 people or characters and get a simulated description of how a Hunger Game including them could play out. The bot works similarly, though there is no limit on the number of players.
+          </Project>
+
+          <Project
+            title="Porygon2"
+            github="https://github.com/tipsypastels/porygon2"
+            techs={['ruby', 'discordrb']}
+          >
+            Porygon2 is a WIP rewrite of Porygon, now using Ruby and Discordrb. It significantly cleans up the code using a rewritten command system, and replaces manual SQL queries with a custom ORM that ressembles a very lightweight version of Rails' ActiveRecord. It also adds in many new commands, along with powerful command parser that supports default parameters, unix-style flags, and strong typing.
           </Project>
         </Section>
 
