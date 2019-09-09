@@ -8,18 +8,6 @@
     background-color: var(--section-color);
   }
 
-  &::after {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 10px;
-    height: 100%;
-    content: ' ';
-    border: 2px solid var(--section-color);
-    border-right: none;
-    pointer-events: none;
-  }
-
   .Section__title {
     font-size: 1.55rem;
     font-weight: 600;
