@@ -26,6 +26,7 @@ const SKILLS = {
     'JavaScript', 'jQuery', 'ES6 / ES2015',
     'PHP', 'Wordpress',
     'React', 'Express', 'REST',
+    'Discordrb', 'Discord.js',
   ],
 
   'Moderate Experience': [
