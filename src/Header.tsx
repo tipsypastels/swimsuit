@@ -6,12 +6,6 @@ import './Header.scss';
 export default function Header() {
   return (
     <div className="Header">
-      <div className="Header__logo" aria-hidden="true">
-        <span>d</span>
-        <span>k</span>
-        <span>t</span>
-      </div>
-
       <img 
         src={me} 
         className="Header__img"

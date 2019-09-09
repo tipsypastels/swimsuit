@@ -4,30 +4,6 @@
   align-items: center;
   margin-top: 1rem;
 
-  .Header__logo {
-    font-size: 4rem;
-    font-weight: 300;
-    background-color: white;
-
-    height: 100px;
-    width: 100px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    user-select: none;
-    border-radius: 10px;
-    box-shadow: 2px  2px 8px white,
-                2px -2px 8px white,
-               -2px  2px 8px white,
-               -2px -2px 8px white;
-
-    span:nth-child(1) { color: var(--sweetness) }
-    span:nth-child(2) { color: var(--spraypaint) }
-    span:nth-child(3) { color: var(--swimsuit) }
-  }
-
   .Header__img {
     max-height: 450px;
   }

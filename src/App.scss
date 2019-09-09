@@ -43,13 +43,18 @@ body {
   }
   
   .skills__lists {
-    min-height: 350px;
-    display: flex;
+    min-height: 400px;
+
+    @media screen and (min-width: 768px) {
+      display: flex;
+    }
 
     ul {
       flex-basis: 33.333%;
   
       margin: 0;
+      margin-bottom: 0.5rem;
+
       padding: 0;
       list-style: none;
     }
