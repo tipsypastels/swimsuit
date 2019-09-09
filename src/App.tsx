@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useState } from 'react';
 
 import Section from './Section';
 import Project from './Project';
@@ -18,6 +18,24 @@ import Header from './Header';
 
 const STARTING_YEAR = 2019;
 const CURRENT_YEAR = new Date().getFullYear();
+
+const SKILLS = {
+  'High Experience': [
+    'HTML', 'CSS / Sass', 'Less', 
+    'Ruby', 'Ruby on Rails', 'Stimulus',
+    'JavaScript', 'jQuery', 'ES6 / ES2015',
+    'PHP', 'Wordpress',
+    'React', 'Express', 'REST',
+  ],
+
+  'Moderate Experience': [
+    'TypeScript', 'Koa', 'Ember', 'WebSockets',
+  ],
+
+  'Learning': [
+    'C', 'Python', 'Angular',
+  ],
+};
 
 type State = {
   photoIndex: number;
@@ -56,9 +74,22 @@ export type PhotoState  = State;
 export type PhotoAction = Action;
 
 export default function App() {
+  const [search, setSearch] = useState<string>('');
+
   const [photoState, photoDispatch] = useReducer(reducer, {
     photoIndex: null, photoList: null,
   });
+
+  const relevantSkills = (function() {
+    const results = {};
+
+    Object.keys(SKILLS).forEach(group => {
+      results[group] = SKILLS[group]
+        .filter(item => item.toLowerCase().includes(search.toLowerCase()));
+    });
+
+    return results;
+  })();
 
   return (
     <div className="App">
@@ -71,7 +102,17 @@ export default function App() {
         <Header />
         
         <Section title="About" color="sweetness">
-          a
+          <p>
+            <strong>Hi, I'm Dakota!</strong> I'm a 20 year old gal from Vancouver, Canada. I make websites and Discord bots :) if you're looking for a freelancer to help out with a project, drop me a message!
+          </p>
+
+          <p>
+            My favourite programming language is <strong>Ruby</strong>, though <strong>TypeScript</strong> has jumped up to a close second in the months I've been using it. My favourite framework is a close tie between <strong>Ruby on Rails</strong> and <strong>React</strong>. And yeah I know how apples and oranges that comparison is.
+          </p>
+
+          <p>
+            <strong>I'm currently available for freelance programming work!</strong> Check out the sections below for examples of what I can do, and feel free to contact me on either Twitter or Discord (<em>dakota#0001</em>) if you'd like to talk about a project.
+          </p>
         </Section>
 
         <Section title="Web Development" color="sexercise">
@@ -100,7 +141,7 @@ export default function App() {
             github="https://github.com/tipsypastels/safari-zine-theme"
             techs={['wordpress', 'php', 'html', 'scss', 'javascript']}
           >
-            Safari Zine is a Wordpress theme I created for a Pokémon fan magazine. Though the magazine no longer exists, you can view an archived version at the link below. The theme also makes use of Wordpress's plugin API to create several custom features, such as new articles automatically being posted to the site's forums.
+            Safari Zine is a Wordpress theme I created for a Pokémon fan magazine. Though the magazine no longer exists, you check out the code below. The theme also makes use of Wordpress's plugin API to create several custom features, such as new articles automatically being posted to the site's forums, and a customizable "<a href="https://bulbapedia.bulbagarden.net/wiki/Pok%C3%A9dex">Pokedex</a>" featuring fanart, stats, and battling tips about various Pokémon.
           </Project>
 
           <Project
@@ -176,7 +217,25 @@ export default function App() {
         </Section>
 
         <Section title="Skills" color="sympathy">
-          
+          <div className="skills">
+            <input 
+              className="skills__search"
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="type to filter skills"
+            />
+
+            <div className="skills__lists">
+              {Object.keys(relevantSkills).map(group => (
+                <ul key={group}>
+                  <li><strong>{group}</strong></li>
+                  {relevantSkills[group].map(item => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </ul>
+              ))}
+            </div>
+          </div>
         </Section>
       </div>
 
