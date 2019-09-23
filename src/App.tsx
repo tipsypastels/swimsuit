@@ -104,11 +104,15 @@ export default function App() {
         
         <Section title="About" color="sweetness">
           <p>
-            <strong>Hi, I'm Dakota!</strong> I'm a 20 year old gal from Vancouver, Canada. I make websites and Discord bots :) if you're looking for a freelancer to help out with a project, drop me a message!
+            <strong>Hi, I'm Dakota!</strong> I'm a 20 year old gal from Vancouver, Canada, studying Web Development at Langara College! I make websites and Discord bots.
           </p>
 
           <p>
             My favourite programming language is <strong>Ruby</strong>, though <strong>TypeScript</strong> has jumped up to a close second in the months I've been using it. My favourite framework is a close tie between <strong>Ruby on Rails</strong> and <strong>React</strong>. And yeah I know how apples and oranges that comparison is.
+          </p>
+
+          <p>
+            I'm really into Nintendo games, especially Pokémon, which is a common theme in many of my programming projects. I also like stealth games, webcomics, worldbuilding, fashion, and good sci-fi stories. My favourite animal is the duck. <img style={{ height: 26, verticalAlign: 'top' }} src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f986.png" />
           </p>
 
           <p>

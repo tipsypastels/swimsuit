@@ -25,6 +25,10 @@ export default function Header() {
           <a href="https://twitter.com/tipsypastels">
             Twitter
           </a>
+
+          <span style={{ color: 'var(--sexercise)' }}>
+            dakota#0001
+          </span>
         </nav>
       </div>
     </div>
