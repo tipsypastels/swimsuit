@@ -28,5 +28,5 @@ export default function Section(props: IProps) {
         {props.children}
       </div>
     </section>
-  )
+  );
 }

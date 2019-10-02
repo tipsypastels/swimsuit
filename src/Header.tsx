@@ -22,13 +22,13 @@ export default function Header() {
             Github
           </a>
 
-          <a href="https://twitter.com/tipsypastels">
-            Twitter
+          <a target="_blank" href={`${process.env.PUBLIC_URL}/resume.pdf`}>
+            Resume
           </a>
 
-          <span style={{ color: 'var(--sexercise)' }}>
-            dakota#0001
-          </span>
+          <a title="dakotasankey@gmail.com" href="mailto:dakotasankey@gmail.com">
+            Email
+          </a>
         </nav>
       </div>
     </div>

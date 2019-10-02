@@ -112,11 +112,11 @@ export default function App() {
           </p>
 
           <p>
-            I'm really into Nintendo games, especially Pokémon, which is a common theme in many of my programming projects. I also like stealth games, webcomics, worldbuilding, fashion, and good sci-fi stories. My favourite animal is the duck. <img style={{ height: 26, verticalAlign: 'top' }} src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f986.png" />
+            I'm really into Nintendo games, especially Pokémon, which is a common theme in many of my programming projects. I also like stealth games, webcomics, worldbuilding, fashion, and good sci-fi stories. My favourite animal is the duck. <img style={{ height: 26, verticalAlign: 'top' }} alt="A duck" src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/72x72/1f986.png" />
           </p>
 
           <p>
-            <strong>I'm currently available for freelance programming work!</strong> Check out the sections below for examples of what I can do, and feel free to contact me on either <a href="https://twitter.com/tipsypastels">Twitter</a> or Discord (<em>dakota#0001</em>) if you'd like to talk about a project.
+            <strong>I'm currently looking for full-time, part-time or freelance programming work!</strong> Check out the sections below for examples of what I can do. You can also see my <a href={`${process.env.PUBLIC_URL}/resume.pdf`}>resume</a>.
           </p>
         </Section>
 
@@ -221,13 +221,13 @@ export default function App() {
           </Project>
         </Section>
 
-        <Section title="Skills" color="sympathy">
+        <Section title="Languages & Frameworks" color="sympathy">
           <div className="skills">
             <input 
               className="skills__search"
               value={search}
               onChange={e => setSearch(e.target.value)}
-              placeholder="type to filter skills"
+              placeholder="type to filter"
             />
 
             <div className="skills__lists">
