@@ -1,53 +1,36 @@
 use super::DIST;
+use aho_corasick::AhoCorasick;
 use anyhow::{Context, Result};
-use axum::body::{Body, Bytes};
-use futures::{stream, StreamExt};
-use std::{convert::Infallible, path::Path};
+use std::{path::Path, sync::LazyLock};
 use tokio::fs;
 use yew::{BaseComponent, ServerRenderer};
 
+const PATTERNS_COUNT: usize = 1;
+const PATTERNS: [&str; PATTERNS_COUNT] = ["<!--{{swimsuit:body}}-->"];
+
+static AC: LazyLock<AhoCorasick> =
+    LazyLock::new(|| AhoCorasick::new(PATTERNS).expect("invalid ac patterns"));
+
 #[derive(Debug, Clone)]
 pub struct Page {
-    before: &'static str,
-    after: &'static str,
+    html: &'static str,
 }
 
 impl Page {
     pub async fn new() -> Result<Self> {
         let path = Path::new(DIST).join("index.html");
         let html = fs::read_to_string(path).await.context("read error")?;
+        let html = Box::leak(Box::from(html));
 
-        let (before, after) = html.split_once("<body>").context("lacks body")?;
-        let (mut before, after) = (before.to_string(), after.to_string());
-        before.push_str("<body>");
-
-        let before = Box::leak(Box::from(before));
-        let after = Box::leak(Box::from(after));
-
-        Ok(Self { before, after })
+        Ok(Self { html })
     }
 
-    pub fn render<C>(self, renderer: ServerRenderer<C>) -> Body
+    pub async fn render<C>(self, renderer: ServerRenderer<C>) -> String
     where
         C: BaseComponent,
     {
-        enum Cow {
-            Owned(String),
-            Borrowed(&'static str),
-        }
-        impl From<Cow> for Bytes {
-            fn from(cow: Cow) -> Self {
-                match cow {
-                    Cow::Owned(o) => o.into(),
-                    Cow::Borrowed(b) => b.into(),
-                }
-            }
-        }
-        Body::from_stream(
-            stream::once(async move { Cow::Borrowed(self.before) })
-                .chain(renderer.render_stream().map(Cow::Owned))
-                .chain(stream::once(async move { Cow::Borrowed(self.after) }))
-                .map(Ok::<_, Infallible>),
-        )
+        let body = renderer.render().await;
+        let replacements: [_; PATTERNS_COUNT] = [body];
+        AC.replace_all(self.html, &replacements)
     }
 }

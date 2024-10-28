@@ -1,7 +1,8 @@
 use self::{app::App, page::Page, serve::serve};
 use anyhow::{Context, Result};
 use axum::{
-    body::Body, extract::State, handler::HandlerWithoutStateExt, http::Uri, routing::get, Router,
+    extract::State, handler::HandlerWithoutStateExt, http::Uri, response::Html, routing::get,
+    Router,
 };
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
@@ -50,10 +51,11 @@ pub async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn render(uri: Uri, State(ssr): State<Ssr>) -> Body {
+async fn render(uri: Uri, State(ssr): State<Ssr>) -> Html<String> {
     let url = uri.path().to_string();
     let props = app::Props { url };
     let renderer = ServerRenderer::<App>::with_props(|| props);
+    let html = ssr.page.render(renderer).await;
 
-    ssr.page.render(renderer)
+    Html(html)
 }
