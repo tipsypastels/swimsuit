@@ -7,6 +7,6 @@ pub mod entry;
 #[function_component]
 pub fn App() -> Html {
     html! {
-        <div>{"Foo!"}</div>
+        <div class="text-blue-500">{"Foo!"}</div>
     }
 }
