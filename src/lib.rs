@@ -1,6 +1,9 @@
 use yew::prelude::*;
 use yew_router::prelude::*;
 
+#[cfg(all(not(target_arch = "wasm32"), feature = "hydration"))]
+compile_error!("hydration feature should be used with trunk");
+
 #[cfg_attr(target_arch = "wasm32", path = "csr.rs")]
 #[cfg_attr(not(target_arch = "wasm32"), path = "ssr/mod.rs")]
 pub mod entry;
