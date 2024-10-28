@@ -4,8 +4,6 @@ use axum::{body::Body, extract::State, handler::HandlerWithoutStateExt, routing:
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 
-#[cfg(debug_assertions)]
-mod hydrate;
 mod index_html;
 mod serve;
 
@@ -19,7 +17,15 @@ struct Ssr {
 #[tokio::main]
 pub async fn main() -> Result<()> {
     #[cfg(debug_assertions)]
-    hydrate::auto().await.context("auto hydration error")?;
+    anyhow::ensure!(
+        tokio::process::Command::new("trunk")
+            .args(["build", "--features", "hydration"])
+            .status()
+            .await
+            .context("hydration error")?
+            .success(),
+        "hydration failed"
+    );
 
     let index_html = IndexHtml::new().await.context("index.html error")?;
     let ssr = Ssr { index_html };
