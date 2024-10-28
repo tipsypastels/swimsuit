@@ -1,3 +1,4 @@
+use super::head::{HeadLock, HeadLockContextProvider};
 use crate::Routes;
 use yew::prelude::*;
 use yew_router::{
@@ -7,6 +8,7 @@ use yew_router::{
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
+    pub headlock: HeadLock,
     pub url: String,
 }
 
@@ -16,8 +18,10 @@ pub fn App(props: &Props) -> Html {
     history.push(&props.url);
 
     html! {
-        <ServerRouter history={history}>
-            <Routes />
-        </ServerRouter>
+        <HeadLockContextProvider context={props.headlock.clone()}>
+            <ServerRouter history={history}>
+                <Routes />
+            </ServerRouter>
+        </HeadLockContextProvider>
     }
 }

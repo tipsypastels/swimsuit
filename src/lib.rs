@@ -1,3 +1,4 @@
+use crate::head::use_head;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -7,6 +8,8 @@ compile_error!("hydration feature should be used with trunk");
 #[cfg_attr(target_arch = "wasm32", path = "platform/csr/mod.rs")]
 #[cfg_attr(not(target_arch = "wasm32"), path = "platform/ssr/mod.rs")]
 pub mod platform;
+
+mod head;
 
 type Link = yew_router::components::Link<Route>;
 
@@ -34,6 +37,8 @@ fn switch(route: Route) -> Html {
 
 #[function_component]
 fn A() -> Html {
+    use_head(|head| head.title("A"));
+
     html! {
         <div class="text-blue-500">
             {"A!"}
@@ -44,6 +49,8 @@ fn A() -> Html {
 
 #[function_component]
 fn B() -> Html {
+    use_head(|head| head.title("B"));
+
     html! {
         <div class="text-red-500">
             {"B!"}

@@ -2,7 +2,10 @@ use crate::Routes;
 use yew::{prelude::*, Renderer};
 use yew_router::BrowserRouter;
 
+pub use self::head::use_head;
 pub use implicit_clone::unsync as sync;
+
+mod head;
 
 #[function_component]
 fn App() -> Html {

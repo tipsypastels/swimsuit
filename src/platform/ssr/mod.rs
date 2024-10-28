@@ -8,9 +8,11 @@ use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 use yew::ServerRenderer;
 
+pub use self::head::use_head;
 pub use implicit_clone::sync;
 
 mod app;
+mod head;
 mod page;
 mod serve;
 
@@ -52,10 +54,14 @@ pub async fn main() -> Result<()> {
 }
 
 async fn render(uri: Uri, State(ssr): State<Ssr>) -> Html<String> {
+    let headlock = head::HeadLock::default();
+    let headlock2 = headlock.clone();
+
     let url = uri.path().to_string();
-    let props = app::Props { url };
+    let props = app::Props { headlock, url };
+
     let renderer = ServerRenderer::<App>::with_props(|| props);
-    let html = ssr.page.render(renderer).await;
+    let html = ssr.page.render(renderer, headlock2).await;
 
     Html(html)
 }
