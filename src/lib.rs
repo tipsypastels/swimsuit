@@ -14,7 +14,7 @@ enum Route {
 }
 
 #[function_component]
-pub fn Routes() -> Html {
+fn Routes() -> Html {
     html! {
         <Switch<Route> render={switch} />
     }
