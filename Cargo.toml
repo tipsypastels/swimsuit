@@ -3,9 +3,12 @@ name = "swimsuit"
 version = "0.1.0"
 edition = "2021"
 
+[features]
+hydration = ["yew/hydration"]
+
 # CSR
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-yew = { version = "0.21.0", features = ["hydration"] }
+yew = { version = "0.21.0", features = ["csr"] }
 
 # SSR
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
