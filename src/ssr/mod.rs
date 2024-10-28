@@ -1,10 +1,11 @@
-use self::index_html::IndexHtml;
+use self::{index_html::IndexHtml, serve::serve};
 use anyhow::{Context, Result};
 use axum::{body::Body, extract::State, handler::HandlerWithoutStateExt, routing::get, Router};
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 
 mod index_html;
+mod serve;
 
 const DIST: &str = "dist";
 
@@ -27,7 +28,7 @@ pub async fn main() -> Result<()> {
     let listener = TcpListener::bind("0.0.0.0:8080").await.unwrap();
 
     println!("Listening on {}.", listener.local_addr()?);
-    axum::serve(listener, router).await?;
+    serve(listener, router).await?;
 
     Ok(())
 }

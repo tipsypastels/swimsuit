@@ -1208,7 +1208,10 @@ dependencies = [
  "anyhow",
  "axum",
  "futures",
+ "hyper",
+ "hyper-util",
  "tokio",
+ "tower",
  "tower-http",
  "yew",
 ]
