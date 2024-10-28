@@ -7,12 +7,12 @@ use tokio::fs;
 use yew::{BaseComponent, ServerRenderer};
 
 #[derive(Debug, Clone)]
-pub struct IndexHtml {
+pub struct Page {
     before: &'static str,
     after: &'static str,
 }
 
-impl IndexHtml {
+impl Page {
     pub async fn new() -> Result<Self> {
         let path = Path::new(DIST).join("index.html");
         let html = fs::read_to_string(path).await.context("read error")?;

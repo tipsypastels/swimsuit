@@ -1,4 +1,4 @@
-use self::{app::App, index_html::IndexHtml, serve::serve};
+use self::{app::App, page::Page, serve::serve};
 use anyhow::{Context, Result};
 use axum::{
     body::Body, extract::State, handler::HandlerWithoutStateExt, http::Uri, routing::get, Router,
@@ -8,14 +8,14 @@ use tower_http::services::ServeDir;
 use yew::ServerRenderer;
 
 mod app;
-mod index_html;
+mod page;
 mod serve;
 
 const DIST: &str = "dist";
 
 #[derive(Debug, Clone)]
 struct Ssr {
-    index_html: IndexHtml,
+    page: Page,
 }
 
 #[tokio::main]
@@ -31,8 +31,8 @@ pub async fn main() -> Result<()> {
         "hydration failed"
     );
 
-    let index_html = IndexHtml::new().await.context("index.html error")?;
-    let ssr = Ssr { index_html };
+    let page = Page::new().await.context("index.html error")?;
+    let ssr = Ssr { page };
 
     let getter = get(render).with_state(ssr.clone()).into_service();
     let service = ServeDir::new(DIST)
@@ -53,5 +53,5 @@ async fn render(uri: Uri, State(ssr): State<Ssr>) -> Body {
     let props = app::Props { url };
     let renderer = ServerRenderer::<App>::with_props(|| props);
 
-    ssr.index_html.render(renderer)
+    ssr.page.render(renderer)
 }
