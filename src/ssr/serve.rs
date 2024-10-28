@@ -20,13 +20,9 @@ pub async fn serve(listener: TcpListener, router: Router<()>) -> Result<()> {
         tokio::spawn(async move {
             let socket = TokioIo::new(socket);
             let service = service_fn(move |req: Request<Incoming>| router.clone().call(req));
-
-            if let Err(err) = server::conn::auto::Builder::new(exec)
+            let _ = server::conn::auto::Builder::new(exec)
                 .serve_connection_with_upgrades(socket, service)
-                .await
-            {
-                eprintln!("failed to serve connection: {err:#}");
-            }
+                .await;
         });
     }
 }

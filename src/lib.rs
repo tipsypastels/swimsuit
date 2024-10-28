@@ -5,6 +5,8 @@ use yew_router::prelude::*;
 #[cfg_attr(not(target_arch = "wasm32"), path = "ssr/mod.rs")]
 pub mod entry;
 
+type Link = yew_router::components::Link<Route>;
+
 #[derive(Routable, Debug, Clone, PartialEq, Eq)]
 enum Route {
     #[at("/a")]
@@ -30,13 +32,19 @@ fn switch(route: Route) -> Html {
 #[function_component]
 fn A() -> Html {
     html! {
-        <div class="text-blue-500">{"A!"}</div>
+        <div class="text-blue-500">
+            {"A!"}
+            <Link to={Route::B}>{"to B"}</Link>
+        </div>
     }
 }
 
 #[function_component]
 fn B() -> Html {
     html! {
-        <div class="text-red-500">{"B!"}</div>
+        <div class="text-red-500">
+            {"B!"}
+            <Link to={Route::A}>{"to A"}</Link>
+        </div>
     }
 }
