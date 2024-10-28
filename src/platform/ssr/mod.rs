@@ -7,6 +7,8 @@ use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 use yew::ServerRenderer;
 
+pub use implicit_clone::sync;
+
 mod app;
 mod page;
 mod serve;

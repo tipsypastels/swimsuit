@@ -2,6 +2,8 @@ use crate::Routes;
 use yew::{prelude::*, Renderer};
 use yew_router::BrowserRouter;
 
+pub use implicit_clone::unsync as sync;
+
 #[function_component]
 fn App() -> Html {
     html! {
