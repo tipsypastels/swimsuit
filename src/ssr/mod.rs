@@ -12,6 +12,7 @@ const DIST: &str = "dist";
 struct Ssr {
     index_html: IndexHtml,
 }
+
 #[tokio::main]
 pub async fn main() -> Result<()> {
     let index_html = IndexHtml::new().await.context("index.html error")?;

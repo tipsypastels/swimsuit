@@ -8,9 +8,8 @@ use yew::{BaseComponent, ServerRenderer};
 
 #[derive(Debug, Clone)]
 pub struct IndexHtml {
-    // Can't use Arc, need to `impl Into<Bytes>`.
-    before: Box<[u8]>,
-    after: Box<[u8]>,
+    before: &'static str,
+    after: &'static str,
 }
 
 impl IndexHtml {
@@ -19,11 +18,11 @@ impl IndexHtml {
         let html = fs::read_to_string(path).await.context("read error")?;
 
         let (before, after) = html.split_once("<body>").context("lacks body")?;
-        let mut before = before.to_string();
+        let (mut before, after) = (before.to_string(), after.to_string());
         before.push_str("<body>");
 
-        let before = before.into_bytes().into_boxed_slice();
-        let after = after.to_string().into_bytes().into_boxed_slice();
+        let before = Box::leak(Box::from(before));
+        let after = Box::leak(Box::from(after));
 
         Ok(Self { before, after })
     }
@@ -32,22 +31,22 @@ impl IndexHtml {
     where
         C: BaseComponent,
     {
-        enum Item {
-            Boxed(Box<[u8]>),
-            String(String),
+        enum Cow {
+            Owned(String),
+            Borrowed(&'static str),
         }
-        impl From<Item> for Bytes {
-            fn from(item: Item) -> Self {
-                match item {
-                    Item::Boxed(b) => b.into(),
-                    Item::String(s) => s.into(),
+        impl From<Cow> for Bytes {
+            fn from(cow: Cow) -> Self {
+                match cow {
+                    Cow::Owned(o) => o.into(),
+                    Cow::Borrowed(b) => b.into(),
                 }
             }
         }
         Body::from_stream(
-            stream::once(async move { Item::Boxed(self.before) })
-                .chain(renderer.render_stream().map(Item::String))
-                .chain(stream::once(async move { Item::Boxed(self.after) }))
+            stream::once(async move { Cow::Borrowed(self.before) })
+                .chain(renderer.render_stream().map(Cow::Owned))
+                .chain(stream::once(async move { Cow::Borrowed(self.after) }))
                 .map(Ok::<_, Infallible>),
         )
     }
