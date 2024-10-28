@@ -1,9 +1,13 @@
-use self::{index_html::IndexHtml, serve::serve};
+use self::{app::App, index_html::IndexHtml, serve::serve};
 use anyhow::{Context, Result};
-use axum::{body::Body, extract::State, handler::HandlerWithoutStateExt, routing::get, Router};
+use axum::{
+    body::Body, extract::State, handler::HandlerWithoutStateExt, http::Uri, routing::get, Router,
+};
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
+use yew::ServerRenderer;
 
+mod app;
 mod index_html;
 mod serve;
 
@@ -44,7 +48,10 @@ pub async fn main() -> Result<()> {
     Ok(())
 }
 
-async fn render(State(ssr): State<Ssr>) -> Body {
-    let renderer = yew::ServerRenderer::<crate::App>::new();
+async fn render(uri: Uri, State(ssr): State<Ssr>) -> Body {
+    let url = uri.path().to_string();
+    let props = app::Props { url };
+    let renderer = ServerRenderer::<App>::with_props(|| props);
+
     ssr.index_html.render(renderer)
 }
