@@ -1,7 +1,12 @@
+use crate::App;
+use yew::Renderer;
+
 pub fn main() {
+    let renderer = Renderer::<App>::new();
+
     #[cfg(feature = "hydration")]
-    yew::Renderer::<crate::App>::new().hydrate();
+    renderer.hydrate();
 
     #[cfg(not(feature = "hydration"))]
-    yew::Renderer::<crate::App>::new().render();
+    renderer.render();
 }
