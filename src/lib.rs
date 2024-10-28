@@ -4,9 +4,9 @@ use yew_router::prelude::*;
 #[cfg(all(not(target_arch = "wasm32"), feature = "hydration"))]
 compile_error!("hydration feature should be used with trunk");
 
-#[cfg_attr(target_arch = "wasm32", path = "csr.rs")]
-#[cfg_attr(not(target_arch = "wasm32"), path = "ssr/mod.rs")]
-pub mod entry;
+#[cfg_attr(target_arch = "wasm32", path = "platform/csr/mod.rs")]
+#[cfg_attr(not(target_arch = "wasm32"), path = "platform/ssr/mod.rs")]
+pub mod platform;
 
 type Link = yew_router::components::Link<Route>;
 

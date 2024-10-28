@@ -1,1 +1,1 @@
-pub use swimsuit::entry::main;
+use swimsuit::platform::main;
