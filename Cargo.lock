@@ -153,6 +153,37 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cfa8873f51c92e232f9bac4065cddef41b714152812bfc5f7672ba16d6ef8cd9"
 
 [[package]]
+name = "bounce"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9bbb94a3fd02455ea76e7708808702cae38f89e24d981f9b14eb66057cb1e23a"
+dependencies = [
+ "anymap2",
+ "bounce-macros",
+ "futures",
+ "gloo 0.10.0",
+ "html-escape",
+ "once_cell",
+ "serde",
+ "tracing",
+ "wasm-bindgen",
+ "web-sys",
+ "yew",
+]
+
+[[package]]
+name = "bounce-macros"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "dd584141fc7c479b4e421ffbbfd3014f0be746c4cc7f61b928de49d163678662"
+dependencies = [
+ "proc-macro-error",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.85",
+]
+
+[[package]]
 name = "bumpalo"
 version = "3.16.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1235,6 +1266,7 @@ dependencies = [
  "aho-corasick",
  "anyhow",
  "axum",
+ "bounce",
  "futures",
  "hyper",
  "hyper-util",

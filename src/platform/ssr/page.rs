@@ -1,12 +1,13 @@
 use super::DIST;
 use aho_corasick::AhoCorasick;
 use anyhow::{Context, Result};
+use bounce::helmet;
 use std::{path::Path, sync::LazyLock};
 use tokio::fs;
 use yew::{BaseComponent, ServerRenderer};
 
-const PATTERNS_COUNT: usize = 1;
-const PATTERNS: [&str; PATTERNS_COUNT] = ["<!--{{swimsuit:body}}-->"];
+const PATTERNS_COUNT: usize = 2;
+const PATTERNS: [&str; PATTERNS_COUNT] = ["</head>", "</body>"];
 
 static AC: LazyLock<AhoCorasick> =
     LazyLock::new(|| AhoCorasick::new(PATTERNS).expect("invalid ac patterns"));
@@ -25,12 +26,28 @@ impl Page {
         Ok(Self { html })
     }
 
-    pub async fn render<C>(self, renderer: ServerRenderer<C>) -> String
+    pub async fn render<C>(
+        self,
+        renderer: ServerRenderer<C>,
+        helmet: helmet::StaticRenderer,
+    ) -> String
     where
         C: BaseComponent,
     {
         let body = renderer.render().await;
-        let replacements: [_; PATTERNS_COUNT] = [body];
+        let head = create_head(helmet).await;
+        let replacements: [_; PATTERNS_COUNT] = [head + "</head>", body + "</body>"];
         AC.replace_all(self.html, &replacements)
     }
+}
+
+async fn create_head(helmet: helmet::StaticRenderer) -> String {
+    let mut s = String::new();
+    let tags = helmet.render().await;
+
+    for tag in tags {
+        let _ = tag.write_static(&mut s);
+    }
+
+    s
 }

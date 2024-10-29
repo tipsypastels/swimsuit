@@ -1,3 +1,4 @@
+use bounce::helmet::Helmet;
 use yew::prelude::*;
 use yew_router::prelude::*;
 
@@ -36,6 +37,7 @@ fn switch(route: Route) -> Html {
 fn A() -> Html {
     html! {
         <div class="text-blue-500">
+            <Helmet><title>{"A"}</title></Helmet>
             {"A!"}
             <Link to={Route::B}>{"to B"}</Link>
         </div>
@@ -46,6 +48,7 @@ fn A() -> Html {
 fn B() -> Html {
     html! {
         <div class="text-red-500">
+            <Helmet><title>{"B"}</title></Helmet>
             {"B!"}
             <Link to={Route::A}>{"to A"}</Link>
         </div>

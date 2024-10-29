@@ -1,4 +1,8 @@
 use crate::Routes;
+use bounce::{
+    helmet::{self, HelmetBridge},
+    BounceRoot,
+};
 use yew::prelude::*;
 use yew_router::{
     history::{AnyHistory, History, MemoryHistory},
@@ -7,6 +11,7 @@ use yew_router::{
 
 #[derive(Properties, PartialEq)]
 pub struct Props {
+    pub helmet: helmet::StaticWriter,
     pub url: String,
 }
 
@@ -16,8 +21,11 @@ pub fn App(props: &Props) -> Html {
     history.push(&props.url);
 
     html! {
-        <ServerRouter history={history}>
-            <Routes />
-        </ServerRouter>
+        <BounceRoot>
+            <HelmetBridge writer={props.helmet.clone()} />
+            <ServerRouter history={history}>
+                <Routes />
+            </ServerRouter>
+        </BounceRoot>
     }
 }

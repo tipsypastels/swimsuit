@@ -4,6 +4,7 @@ use axum::{
     extract::State, handler::HandlerWithoutStateExt, http::Uri, response::Html, routing::get,
     Router,
 };
+use bounce::helmet;
 use tokio::net::TcpListener;
 use tower_http::services::ServeDir;
 use yew::ServerRenderer;
@@ -52,10 +53,15 @@ pub async fn main() -> Result<()> {
 }
 
 async fn render(uri: Uri, State(ssr): State<Ssr>) -> Html<String> {
+    let (helmet_renderer, helmet_writer) = helmet::render_static();
     let url = uri.path().to_string();
-    let props = app::Props { url };
+    let props = app::Props {
+        helmet: helmet_writer,
+        url,
+    };
+
     let renderer = ServerRenderer::<App>::with_props(|| props);
-    let html = ssr.page.render(renderer).await;
+    let html = ssr.page.render(renderer, helmet_renderer).await;
 
     Html(html)
 }

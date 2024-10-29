@@ -1,4 +1,5 @@
 use crate::Routes;
+use bounce::{helmet::HelmetBridge, BounceRoot};
 use yew::{prelude::*, Renderer};
 use yew_router::BrowserRouter;
 
@@ -7,9 +8,12 @@ pub use implicit_clone::unsync as sync;
 #[function_component]
 fn App() -> Html {
     html! {
-        <BrowserRouter>
-            <Routes />
-        </BrowserRouter>
+        <BounceRoot>
+            <HelmetBridge />
+            <BrowserRouter>
+                <Routes />
+            </BrowserRouter>
+        </BounceRoot>
     }
 }
 
